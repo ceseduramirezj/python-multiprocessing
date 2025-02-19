@@ -48,31 +48,7 @@ addition_component = 2
 #Al terminar todos los procesos obtenemos un resultado aplicando una funcion a una entrada de dato
 
 # Podemos ver el numero de cores que tiene la maquina
-num_cpu_available = max(1, cpu_count() - 1)
 
-print('Number of cpus being used:', num_cpu_available)
-#print("num_cpi_available", num_cpu_available)
-
-# Usamos la funcion partial para pasar argumentos a la funcion square, los primeros 2 argumentos
-#partial_func = partial(square, power, addition_component)
-
-prepared_list = []
-#for i in range(len(comparison_list)):
-#    prepared_list.append((comparison_list[i], power_list[i]))
-
-for i in range(len(lower_and_upper_bounds)):
-    prepared_list.append((comparison_list, lower_and_upper_bounds[i][0], lower_and_upper_bounds[i][1]))
-
-print('List to use as input:', prepared_list)
-
-
-with Pool(num_cpu_available) as mp_pool:
-    #result = mp_pool.map(partial_func, comparison_list)
-    #result = mp_pool.starmap(square, prepared_list)
-    result = mp_pool.starmap(check_number_of_values_in_range, prepared_list)
-
-
-print(result)
 """ processes = []
 
 for i in range(num_processes):
@@ -95,3 +71,30 @@ while True:
     print('Between', lower, 'and', upper, 'we have', number_of_hits, 'values in the list')
 
 print('Everythin took:', time.time() - start_time, 'seconds') """
+
+if __name__ == "__main__":
+    num_cpu_available = max(1, cpu_count() - 1)
+
+    print('Number of cpus being used:', num_cpu_available)
+    #print("num_cpi_available", num_cpu_available)
+
+    # Usamos la funcion partial para pasar argumentos a la funcion square, los primeros 2 argumentos
+    #partial_func = partial(square, power, addition_component)
+
+    prepared_list = []
+    #for i in range(len(comparison_list)):
+    #    prepared_list.append((comparison_list[i], power_list[i]))
+
+    for i in range(len(lower_and_upper_bounds)):
+        prepared_list.append((comparison_list, lower_and_upper_bounds[i][0], lower_and_upper_bounds[i][1]))
+
+    print('List to use as input:', prepared_list)
+
+
+    with Pool(num_cpu_available) as mp_pool:
+        #result = mp_pool.map(partial_func, comparison_list)
+        #result = mp_pool.starmap(square, prepared_list)
+        result = mp_pool.starmap(check_number_of_values_in_range, prepared_list)
+
+
+    print(result)
